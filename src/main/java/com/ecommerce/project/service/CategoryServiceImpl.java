@@ -41,14 +41,14 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryMapper.toDto(createdCategory);
     }
     @Override
-    public String deleteCategory(Long categoryId){
+    public CategoryDTO deleteCategory(Long categoryId){
         Optional<Category> savedCategoryOptional=categoryRepository.findById(categoryId);
         //Category category=savedCategoryOptional.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Resource not found"));
         Category category=savedCategoryOptional.orElseThrow(()->new ResourceNotFoundException("Category","categoryID",categoryId));
 
 
         categoryRepository.delete(category);
-        return "Successfully Deleted";
+        return categoryMapper.toDto(category);
     }
 
     @Override
